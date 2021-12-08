@@ -7,13 +7,18 @@ input.onButtonPressed(Button.A, function () {
     }
 })
 input.onButtonPressed(Button.AB, function () {
-    if (play_song == false) {
-        play_song = true
-        change_note = false
-        change_bpm = false
-    } else {
-        play_song = false
+    play_song = true
+    change_note = false
+    change_bpm = false
+    for (let note of song) {
+        led.plotBarGraph(
+        note,
+        988
+        )
+        music.playTone(note, music.beat(BeatFraction.Whole))
     }
+    play_song = false
+    basic.showIcon(IconNames.EigthNote)
 })
 input.onButtonPressed(Button.B, function () {
     if (change_bpm == true) {
@@ -29,23 +34,25 @@ let bpm_change = 0
 let song: number[] = []
 let play_song = false
 let current_note = 0
-current_note = 330
+current_note = 523
 play_song = false
 song = []
 bpm_change = 120
 change_bpm = false
 change_note = false
 music.setTempo(120)
+let note_list = [
+262,
+294,
+330,
+349,
+392,
+440,
+494
+]
+basic.showIcon(IconNames.EigthNote)
 basic.forever(function () {
-    if (play_song == true) {
-        for (let note of song) {
-            led.plotBarGraph(
-            note,
-            988
-            )
-            music.playTone(note, music.tempo())
-        }
-    } else if (change_bpm == true) {
+    if (change_bpm == true) {
         bpm_change = pins.map(
         Math.abs(input.acceleration(Dimension.Y)),
         0,
@@ -57,14 +64,14 @@ basic.forever(function () {
         bpm_change,
         400
         )
-        music.playTone(523, bpm_change)
+        music.playTone(523, music.beat(BeatFraction.Whole))
     } else if (change_note == true) {
         current_note = pins.map(
         Math.abs(input.acceleration(Dimension.Y)),
         0,
         1023,
-        131,
-        988
+        262,
+        523
         )
         led.plotBarGraph(
         input.acceleration(Dimension.Y),
@@ -72,6 +79,6 @@ basic.forever(function () {
         )
         music.playTone(current_note, music.beat(BeatFraction.Whole))
     } else {
-        basic.showIcon(IconNames.EigthNote)
+    	
     }
 })
