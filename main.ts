@@ -7,7 +7,6 @@ input.onButtonPressed(Button.A, function () {
     }
 })
 input.onButtonPressed(Button.AB, function () {
-    play_song = true
     change_note = false
     change_bpm = false
     for (let note of song) {
@@ -17,7 +16,6 @@ input.onButtonPressed(Button.AB, function () {
         )
         music.playTone(note, music.beat(BeatFraction.Whole))
     }
-    play_song = false
     basic.showIcon(IconNames.EigthNote)
 })
 input.onButtonPressed(Button.B, function () {
@@ -32,24 +30,13 @@ let change_note = false
 let change_bpm = false
 let bpm_change = 0
 let song: number[] = []
-let play_song = false
 let current_note = 0
 current_note = 523
-play_song = false
 song = []
 bpm_change = 120
 change_bpm = false
 change_note = false
 music.setTempo(120)
-let note_list = [
-262,
-294,
-330,
-349,
-392,
-440,
-494
-]
 basic.showIcon(IconNames.EigthNote)
 basic.forever(function () {
     if (change_bpm == true) {
