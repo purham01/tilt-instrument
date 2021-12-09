@@ -33,11 +33,11 @@ let song: number[] = []
 let current_note = 0
 current_note = 523
 song = []
+basic.showIcon(IconNames.EigthNote)
 bpm_change = 120
 change_bpm = false
 change_note = false
 music.setTempo(120)
-basic.showIcon(IconNames.EigthNote)
 basic.forever(function () {
     if (change_bpm == true) {
         bpm_change = pins.map(
